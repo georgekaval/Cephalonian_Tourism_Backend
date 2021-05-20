@@ -4,23 +4,23 @@ from flask_login import UserMixin
 DATABASE = SqliteDatabase('attractions.sqlite')
 
 class User(UserMixin, Model):
-    username=CharField(unique=True)
-    email=CharField(unique=True)
-    password=CharField()
+    username=CharField(unique=True, null=False, max_length=15)
+    email=CharField(unique=True, null=False)
+    password=CharField(null=False,)
     class Meta:
         database = DATABASE
 
 class Attraction(Model):
     name = CharField()
     location = CharField()
-    image = CharField()
-    info = CharField()
+    image = BlobField()
+    info = TextField()
     class Meta:
         database = DATABASE
 
 class Review(Model):
     user=ForeignKeyField(User, backref="user_review")
-    review=CharField()
+    review=TextField(null=False)
     attraction=ForeignKeyField(Attraction, backref="attraction_review")
     create_at: DateTimeField(default=datetime.datetime.now)
     class Meta:
