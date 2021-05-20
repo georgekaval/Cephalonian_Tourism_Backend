@@ -6,15 +6,15 @@ DATABASE = SqliteDatabase('attractions.sqlite')
 class User(UserMixin, Model):
     username=CharField(unique=True, null=False, max_length=15)
     email=CharField(unique=True, null=False)
-    password=CharField(null=False,)
+    password=CharField(null=False)
     class Meta:
         database = DATABASE
 
 class Attraction(Model):
-    name = CharField()
-    location = CharField()
-    image = BlobField()
-    info = TextField()
+    name = CharField(null=False)
+    location = CharField(null=False)
+    image = CharField(null=False)
+    info = TextField(null=False)
     class Meta:
         database = DATABASE
 
