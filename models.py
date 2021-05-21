@@ -19,9 +19,9 @@ class Attraction(Model):
         database = DATABASE
 
 class Review(Model):
-    user=ForeignKeyField(User, backref="user_review")
+    user=TextField(null=False)
     review=TextField(null=False)
-    attraction=ForeignKeyField(Attraction, backref="attraction_review")
+    attraction=TextField(null=False)
     create_at: DateTimeField(default=datetime.datetime.now)
     class Meta:
         database = DATABASE

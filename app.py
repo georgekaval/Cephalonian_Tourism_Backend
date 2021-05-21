@@ -7,7 +7,7 @@ from flask_login import LoginManager
 from dotenv import load_dotenv
 
 from resources.attractions import attraction
-# from resources.reviews import reviews
+from resources.reviews import review
 # from resources.users import users
 
 import models
@@ -43,11 +43,11 @@ def after_request(response):
 
 CORS(attraction, origins=['http://localhost:3000'], supports_credentials=True)
 # CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
-# CORS(review, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(review, origins=['http://localhost:3000'], supports_credentials=True)
 
 app.register_blueprint(attraction, url_prefix='/api/v1/attractions')
 # app.register_blueprint(user, url_prefix='/api/v1/users')
-# app.register_blueprint(review, url_prefix='/api/v1/reviews')
+app.register_blueprint(review, url_prefix='/api/v1/reviews')
 
 if __name__ == '__main__':
     models.initialize()
