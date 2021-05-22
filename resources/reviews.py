@@ -2,6 +2,8 @@ import models
 
 from flask import Blueprint, request, jsonify
 
+from resources.attractions import attraction
+
 from playhouse.shortcuts import model_to_dict
 
 from flask_login import current_user, login_required
@@ -21,9 +23,10 @@ def review_index():
         return jsonify(data={}, status={"code": 401, "message": "Error getting the resources"})
 
 @review.route('/', methods=['POST'])
+@login_required
 def create_review():
     payload = request.get_json()
-    new_review = models.Review.create(**payload)
+    new_review = models.Review.create(user=current_user.id, review=payload['review'], attraction=payload['attraction'])
     review_dict = model_to_dict(new_review)
     return jsonify(
         data=review_dict,
@@ -41,6 +44,7 @@ def get_one_review(id):
     ), 200
 
 @review.route('/<id>', methods=["PUT"])
+@login_required
 def update_review(id):
     payload = request.get_json()
     models.Review.update(**payload).where(models.Review.id==id).execute()
@@ -51,6 +55,7 @@ def update_review(id):
     ), 200
 
 @review.route('/<id>', methods=["DELETE"])
+@login_required
 def delete_review(id):
     models.Review.delete().where(models.Review.id==id).execute()
     return jsonify(
