@@ -2,14 +2,13 @@ import models
 
 from flask import Blueprint, request, jsonify
 
-from resources.attractions import attraction
 
 from playhouse.shortcuts import model_to_dict
 
 from flask_login import current_user, login_required
 
 review = Blueprint('reviews', 'review')
-# need to change so reviews are only shown on the attraction 
+# need to change so reviews are only shown on the attraction
 @review.route('/', methods=["GET"])
 def review_index():
     try:
@@ -26,7 +25,7 @@ def review_index():
 @login_required
 def create_review():
     payload = request.get_json()
-    new_review = models.Review.create(user=current_user.id, review=payload['review'], attraction=payload['attraction'])
+    new_review = models.Review.create(user=current_user.id, review=payload['review'], attraction=models.Attraction.id)
     review_dict = model_to_dict(new_review)
     return jsonify(
         data=review_dict,

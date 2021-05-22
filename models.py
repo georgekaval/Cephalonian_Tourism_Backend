@@ -21,7 +21,7 @@ class Attraction(Model):
 class Review(Model):
     user=ForeignKeyField(User, backref="my_reviews")
     review=TextField(null=False)
-    attraction=CharField(null=False)
+    attraction=ForeignKeyField(Attraction, backref="my_reviews")
     create_at: DateTimeField(default=datetime.datetime.now)
     class Meta:
         database = DATABASE
