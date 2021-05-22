@@ -17,7 +17,7 @@ class Attraction(Model):
     info = TextField(null=False)
     class Meta:
         database = DATABASE
-
+# need to change attraction so it is related to review
 class Review(Model):
     user=ForeignKeyField(User, backref="my_reviews")
     review=TextField(null=False)

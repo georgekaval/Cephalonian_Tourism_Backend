@@ -9,7 +9,7 @@ from playhouse.shortcuts import model_to_dict
 from flask_login import current_user, login_required
 
 review = Blueprint('reviews', 'review')
-
+# need to change so reviews are only shown on the attraction 
 @review.route('/', methods=["GET"])
 def review_index():
     try:
@@ -21,7 +21,7 @@ def review_index():
         }),200
     except models.DoesNotExist:
         return jsonify(data={}, status={"code": 401, "message": "Error getting the resources"})
-
+# need to change attraction so it will choose the current attractions id to make relationship
 @review.route('/', methods=['POST'])
 @login_required
 def create_review():
