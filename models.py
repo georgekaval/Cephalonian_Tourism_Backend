@@ -18,10 +18,11 @@ class Attraction(Model):
     class Meta:
         database = DATABASE
 # need to change attraction so it is related to review
+# ForeignKeyField(Attraction, backref="my_reviews")
 class Review(Model):
     user=ForeignKeyField(User, backref="my_reviews")
     review=TextField(null=False)
-    attraction=ForeignKeyField(Attraction, backref="my_reviews")
+    attraction=  ForeignKeyField(Attraction, backref="my_reviews")
     create_at: DateTimeField(default=datetime.datetime.now)
     class Meta:
         database = DATABASE

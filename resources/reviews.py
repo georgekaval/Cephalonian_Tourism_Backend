@@ -20,12 +20,15 @@ def review_index():
         }),200
     except models.DoesNotExist:
         return jsonify(data={}, status={"code": 401, "message": "Error getting the resources"})
+
+
 # need to change attraction so it will choose the current attractions id to make relationship
-@review.route('/', methods=['POST'])
+# models.Attraction.id
+@review.route('/<id>', methods=['POST'])
 @login_required
-def create_review():
+def create_review(id):
     payload = request.get_json()
-    new_review = models.Review.create(user=current_user.id, review=payload['review'], attraction=models.Attraction.id)
+    new_review = models.Review.create(user=current_user.id, review=payload['review'], attraction=models.Attraction.get_by_id(id))
     review_dict = model_to_dict(new_review)
     return jsonify(
         data=review_dict,
