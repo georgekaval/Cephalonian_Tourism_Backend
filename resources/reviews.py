@@ -9,10 +9,10 @@ from flask_login import current_user, login_required
 
 review = Blueprint('reviews', 'review')
 # need to change so reviews are only shown on the attraction
-@review.route('/', methods=["GET"])
-def review_index():
+@review.route('/<id>', methods=["GET"])
+def review_index(id):
     try:
-        review_dicts = [model_to_dict(review) for review in models.Review.select()]
+        review_dicts = [model_to_dict(review) for review in models.Review.select().join(models.Attraction).where(models.Attraction.id == id)]
         return jsonify({
             'data': review_dicts,
             'message': "Successfully found reviews",
