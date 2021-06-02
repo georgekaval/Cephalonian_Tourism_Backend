@@ -1,12 +1,14 @@
 from peewee import *
 import datetime
 from flask_login import UserMixin
-DATABASE = SqliteDatabase('attractions.sqlite')
+
+DATABASE = PostgresqlDatabase('attractions', user='postgres')
 
 class User(UserMixin, Model):
     username=CharField(unique=True, null=False, max_length=15)
     email=CharField(unique=True, null=False)
     password=CharField(null=False)
+    admin=BooleanField(default=False)
     class Meta:
         database = DATABASE
 
@@ -17,8 +19,7 @@ class Attraction(Model):
     info = TextField(null=False)
     class Meta:
         database = DATABASE
-# need to change attraction so it is related to review
-# ForeignKeyField(Attraction, backref="my_reviews")
+
 class Review(Model):
     user=ForeignKeyField(User, backref="my_reviews")
     review=TextField(null=False)
