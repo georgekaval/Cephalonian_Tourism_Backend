@@ -60,6 +60,13 @@ def before_request():
         return response # go ahead and send response back to client
                       # (in our case this will be some JSON)
 
+
+@app.route('/')
+def hello():
+    return 'Hello, world!'
+
+
+
 if __name__ == '__main__':
     models.initialize()
     app.run(debug=DEBUG, port=PORT)
