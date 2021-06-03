@@ -35,9 +35,9 @@ def load_user(user_id):
         return None
 
 
-CORS(attraction, origins=['http://localhost:3000'], supports_credentials=True)
-CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
-CORS(review, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(attraction, origins=['http://localhost:3000', 'https://tourism-frontend.herokuapp.com'], supports_credentials=True)
+CORS(user, origins=['http://localhost:3000', 'https://tourism-frontend.herokuapp.com'], supports_credentials=True)
+CORS(review, origins=['http://localhost:3000', 'https://tourism-frontend.herokuapp.com'], supports_credentials=True)
 
 app.register_blueprint(attraction, url_prefix='/api/v1/attractions')
 app.register_blueprint(user, url_prefix='/api/v1/users')
