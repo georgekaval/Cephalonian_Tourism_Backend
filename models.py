@@ -1,8 +1,13 @@
+import os
 from peewee import *
 import datetime
 from flask_login import UserMixin
+from playhouse.db_url import connect
 
-DATABASE = PostgresqlDatabase('attractions', user='postgres')
+# DATABASE = PostgresqlDatabase('attractions', user='postgres')
+DATABASE = connect(os.environ.get('DATABASE_URL') or 'sqlite:///attractions.sqlite')
+# Connect to the database URL defined in the environment, falling
+# back to a local Sqlite database if no database URL is specified.
 
 class User(UserMixin, Model):
     username=CharField(unique=True, null=False, max_length=15)
