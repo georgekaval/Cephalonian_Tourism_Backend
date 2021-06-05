@@ -43,6 +43,10 @@ app.register_blueprint(attraction, url_prefix='/api/v1/attractions')
 app.register_blueprint(user, url_prefix='/api/v1/users')
 app.register_blueprint(review, url_prefix='/api/v1/reviews')
 
+app.config.update(
+  SESSION_COOKIE_SECURE=True,
+  SESSION_COOKIE_SAMESITE='None'
+)
 
 # we don't want to hog up the SQL connection pool
 # so we should connect to the DB before every request
